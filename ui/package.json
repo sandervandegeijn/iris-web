@@ -14,6 +14,7 @@
     "vite-plugin-static-copy": "^1.0.6"
   },
   "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "ace-builds": "^1.4.9",
     "bootstrap": "^4.0.0",
     "bootstrap-slider": "^11.0.2",
@@ -30,6 +31,7 @@
     "showdown": "^1.9.0",
     "socket.io": "^4.3.2",
     "sortablejs": "^1.7.0",
+    "svelte": "^4.2.19",
     "vis": "^4.21.0-EOL",
     "webfontloader": "^1.6.16",
     "xss": "^1.0.15"

@@ -22,9 +22,11 @@ from flask import redirect
 from flask import url_for
 from flask_login import current_user
 from flask_wtf import FlaskForm
+from rich.markup import render
 from typing import Union
 from werkzeug import Response
 
+from app import app
 from app.datamgmt.alerts.alerts_db import get_alert_by_id
 from app.datamgmt.manage.manage_access_control_db import user_has_client_access
 from app.models.authorization import Permissions
@@ -57,6 +59,10 @@ def alerts_list_view_route(caseid, url_redir) -> Union[str, Response]:
 
     return render_template('alerts.html', caseid=caseid, form=form)
 
+@alerts_blueprint.route('/alerts/v2', methods=['GET'])
+@ac_requires(Permissions.alerts_read, no_cid_required=True)
+def alerts_v2(caseid, url_redir):
+    return render_template('alerts_svelte.html')
 
 @alerts_blueprint.route('/alerts/<int:cur_id>/comments/modal', methods=['GET'])
 @ac_requires(Permissions.alerts_read, no_cid_required=True)

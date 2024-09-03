@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 import fs from "node:fs";
 import path from "node:path";
@@ -33,7 +34,10 @@ export default defineConfig(({ mode }) => {
             manifest: false,
             outDir: 'dist',
             rollupOptions: {
-                input: resolveInputs('./src/'),
+                input: {
+                    ...resolveInputs('./src/lib/'),
+                    alerts: fileURLToPath(new URL('./src/main.js', import.meta.url)),
+                },
                 output: {
                     manualChunks: undefined,
                     entryFileNames: 'assets/js/iris/[name].js',
@@ -43,6 +47,7 @@ export default defineConfig(({ mode }) => {
             sourcemap: (development) ? 'inline': false,
         },
         plugins: [
+            svelte(),
             viteStaticCopy({
                 targets: [
                     // Core
